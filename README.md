@@ -177,47 +177,6 @@ docker run -p 3000:3000 -v $(pwd)/data:/app/public all-about-arsenal
 
 ---
 
-## Deployment options
-
-**Fly.io (free tier)**
-```bash
-fly launch
-fly deploy
-```
-
-**Railway**
-Push to GitHub, connect repo in Railway dashboard, set `PORT` if needed.
-
-**VPS / bare metal**
-```bash
-npm install -g pm2
-pm2 start server.js --name all-about-arsenal
-pm2 save
-pm2 startup
-```
-
-**Nginx reverse proxy**
-```nginx
-location / {
-    proxy_pass         http://localhost:3000;
-    proxy_http_version 1.1;
-    proxy_set_header   Host $host;
-    proxy_set_header   X-Real-IP $remote_addr;
-}
-```
-
----
-
-## Customising for another club
-
-1. **Feeds** — swap the `FEEDS` array in `fetcher.js` for your club's RSS sources
-2. **Filter** — update `isArsenalRelated()` to match your club name
-3. **Colours** — change `--red`, `--red-d`, `--red-l` in `index.html`
-4. **Logo** — update the `.logo` text and `.hero-band` copy
-5. **Tags** — adjust the `KEYWORDS` object in `fetcher.js` for relevant categories
-
----
-
 ## License
 
-MIT — do whatever you like with it. Up the Arsenal. 🔴
+MIT —  #COYG 🔴
