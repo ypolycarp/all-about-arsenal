@@ -31,8 +31,23 @@ const FEEDS = [
     defaultTag: 'news',
   },
   {
+    url: 'https://metro.co.uk/sport/football/feed/',
+    source: 'Metro',
+    defaultTag: 'news',
+  },
+  {
+    url: 'https://www.football.london/arsenal-fc/?service=rss',
+    source: 'Football London',
+    defaultTag: 'news',
+  },
+  {
     url: 'https://www.skysports.com/rss/12040',
     source: 'Sky Sports',
+    defaultTag: 'news',
+  },
+  {
+    url: 'https://www.standard.co.uk/sport/football/rss',
+    source: 'Evening Standard',
     defaultTag: 'news',
   },
   {
@@ -49,6 +64,16 @@ const FEEDS = [
     url: 'https://news.google.com/rss/search?q=Arsenal+World+Cup+2026&hl=en-GB&gl=GB&ceid=GB:en',
     source: 'Google News',
     defaultTag: 'wc',
+  },
+  {
+    url: 'https://news.google.com/rss/search?q=Arsenal+site%3Aarsenal.com&hl=en-GB&gl=GB&ceid=GB:en',
+    source: 'Google News (Arsenal.com)',
+    defaultTag: 'news',
+  },
+  {
+    url: 'https://news.google.com/rss/search?q=Arsenal+site%3Alivescore.com&hl=en-GB&gl=GB&ceid=GB:en',
+    source: 'Google News (LiveScore)',
+    defaultTag: 'match',
   },
 ];
 

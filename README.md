@@ -38,8 +38,9 @@ Startup / Cron (every 30 min)
         ▼
   fetcher.fetchAll()
         │
-        ├─ Fetch 7 RSS feeds in parallel (BBC Sport, Guardian,
-        │  Just Arsenal, Sky Sports, ESPN, Google News ×2)
+        ├─ Fetch 12 RSS feeds in parallel (BBC Sport, Guardian,
+        │  Just Arsenal, Metro, Football London, Sky Sports,
+        │  Evening Standard, ESPN, Google News ×4)
         │
         ├─ Filter: keep only Arsenal-related items
         │  (title/description contains "arsenal", "gunners", "emirates")
@@ -73,10 +74,17 @@ Startup / Cron (every 30 min)
 | `feeds.bbci.co.uk/sport/football/teams/arsenal/rss.xml` | BBC Sport | news |
 | `theguardian.com/football/arsenal/rss` | The Guardian | news |
 | `justarsenal.com/feed` | Just Arsenal | news |
+| `metro.co.uk/sport/football/feed` | Metro | news |
+| `football.london/arsenal-fc/?service=rss` | Football London | news |
 | `skysports.com/rss/12040` | Sky Sports | news |
+| `standard.co.uk/sport/football/rss` | Evening Standard | news |
 | `espn.com/espn/rss/soccer/news` | ESPN FC | news |
 | Google News — `Arsenal FC transfer` | Google News | transfer |
 | Google News — `Arsenal World Cup 2026` | Google News | wc |
+| Google News — `Arsenal site:arsenal.com` | Google News (Arsenal.com) | news |
+| Google News — `Arsenal site:livescore.com` | Google News (LiveScore) | match |
+
+Arsenal.com and LiveScore did not expose valid direct RSS endpoints during setup, so they are included through targeted Google News RSS searches.
 
 Add more feeds in `fetcher.js` by appending to the `FEEDS` array:
 
