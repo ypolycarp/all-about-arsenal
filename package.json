@@ -1,0 +1,16 @@
+{
+  "name": "all-about-arsenal",
+  "version": "1.0.0",
+  "description": "Arsenal FC news aggregator — self-hosted RSS blog",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "fetch": "node -e \"require('./fetcher').fetchAll()\""
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-cron": "^3.0.3",
+    "rss-parser": "^3.13.0"
+  }
+}

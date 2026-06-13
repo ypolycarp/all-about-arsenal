@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>All Arsenal FC News</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --ink-m: #6b6b65;
+    --ink-f: #b0afa8;
+    --paper: #f8f6f1;
+    --paper-w: #ede9e0;
+    --red: #EF0107;
+    --red-d: #b30005;
+    --red-l: #fde8e8;
+    --gold: #9B6B2F;
+    --bd: rgba(26,26,24,0.12);
+    --bd-s: rgba(26,26,24,0.22);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); min-height: 100vh; }
+
+  /* ── Hero band ── */
+  .hero-band {
+    background: var(--red); color: #fff;
+    padding: 7px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; letter-spacing: .8px; text-transform: uppercase; font-weight: 500;
+  }
+  .live-dot {
+    display: inline-block; width: 7px; height: 7px;
+    border-radius: 50%; background: #fff; margin-right: 6px;
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* ── Masthead ── */
+  .masthead {
+    border-bottom: 3px solid var(--ink);
+    padding: 18px 28px 14px;
+    background: var(--paper);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .masthead-inner { max-width: 960px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .masthead-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .logo { font-family: var(--serif); font-size: 25px; font-weight: 700; color: var(--ink); }
+  .logo span { color: var(--red); }
+  .refresh-btn {
+    font-family: var(--sans); font-size: 11px; font-weight: 500;
+    padding: 6px 12px; background: transparent;
+    border: 1px solid var(--bd-s); border-radius: 3px;
+    cursor: pointer; color: var(--ink-m); transition: all .15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .refresh-btn:hover { border-color: var(--red); color: var(--red); }
+  .refresh-btn.spinning svg { animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .dateline { font-size: 11px; color: var(--ink-m); letter-spacing: .7px; text-transform: uppercase; }
+  .updated-tag {
+    display: inline-block; font-size: 10px; font-weight: 500;
+    background: var(--paper-w); border: 1px solid var(--bd);
+    padding: 1px 7px; border-radius: 20px; margin-left: 8px; color: var(--ink-f);
+  }
+
+  /* ── Main ── */
+  .main { max-width: 960px; margin: 0 auto; padding: 24px 28px 60px; }
+
+  /* ── Tabs ── */
+  .feed-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .tab {
+    font-size: 11px; font-weight: 500; letter-spacing: .5px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 2px; cursor: pointer;
+    border: 1px solid var(--bd-s); background: transparent; color: var(--ink-m);
+    transition: all .15s; font-family: var(--sans);
+  }
+  .tab.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .tab:hover:not(.active) { border-color: var(--red); color: var(--red); }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--ink-m); margin-bottom: 16px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--bd);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  .count {
+    font-size: 11px; font-weight: 500;
+    background: var(--red-l); color: var(--red-d);
+    padding: 2px 8px; border-radius: 20px; letter-spacing: 0; text-transform: none;
+  }
+  .ttag {
+    font-size: 11px; font-weight: 500; letter-spacing: .5px; text-transform: uppercase;
+    background: var(--red); color: #fff; padding: 3px 10px; border-radius: 2px; margin-left: 8px;
+  }
+
+  /* ── Grid ── */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 18px; }
+
+  /* ── Cards ── */
+  .card {
+    background: #fff; border: .5px solid var(--bd); border-radius: 2px;
+    overflow: hidden; display: flex; flex-direction: column;
+    text-decoration: none; color: inherit;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(26,26,24,.09); border-color: var(--bd-s); }
+  .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: var(--paper-w); display: block; }
+  .card-ph { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+  .ph-ucl      { background: #ddeaf9; }
+  .ph-transfer { background: #fef3e2; }
+  .ph-wc       { background: #e3f2e1; }
+  .ph-match    { background: #fde8e8; }
+  .ph-news     { background: #ede9e0; }
+  .card-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; gap: 7px; }
+  .card-src { font-size: 10px; font-weight: 500; letter-spacing: .7px; text-transform: uppercase; color: var(--gold); }
+  .card-title { font-family: var(--serif); font-size: 14px; font-weight: 700; line-height: 1.4; color: var(--ink); flex: 1; }
+  .card-tag {
+    display: inline-block; font-size: 9px; font-weight: 500;
+    letter-spacing: .5px; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 2px; width: fit-content;
+  }
+  .tag-transfer { background: #faeeda; color: #633806; }
+  .tag-ucl      { background: #e6f1fb; color: #0c447c; }
+  .tag-wc       { background: #eaf3de; color: #27500a; }
+  .tag-match    { background: #fde8e8; color: #a32d2d; }
+  .tag-news     { background: #f1efe8; color: #5f5e5a; }
+  .card-date { font-size: 11px; color: var(--ink-f); display: flex; align-items: center; gap: 5px; }
+  .card-date::before { content: ''; width: 10px; height: 1px; background: var(--ink-f); flex-shrink: 0; }
+
+  /* ── Read more ── */
+  .read-more-row { margin-top: 24px; text-align: center; }
+  .btn-more {
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    padding: 10px 28px; background: transparent; color: var(--ink);
+    border: 1px solid var(--bd-s); border-radius: 3px; cursor: pointer;
+    transition: all .15s;
+  }
+  .btn-more:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .showing-label { font-size: 11px; color: var(--ink-f); margin-top: 10px; }
+
+  /* ── States ── */
+  .state {
+    padding: 60px 0; text-align: center;
+    font-size: 13px; color: var(--ink-m); font-style: italic;
+  }
+  .dots { display: inline-flex; gap: 6px; margin-bottom: 14px; }
+  .dots span {
+    width: 7px; height: 7px; background: var(--red); border-radius: 50%;
+    animation: db 1.2s ease-in-out infinite;
+  }
+  .dots span:nth-child(2) { animation-delay: .2s; }
+  .dots span:nth-child(3) { animation-delay: .4s; }
+  @keyframes db { 0%,80%,100%{transform:translateY(0);opacity:.4} 40%{transform:translateY(-8px);opacity:1} }
+  .error-msg { color: var(--red); }
+</style>
+</head>
+<body>
+
+<div class="hero-band">
+  <div><span class="live-dot"></span>Live edition — Arsenal FC</div>
+  <div id="hero-date"></div>
+</div>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-top">
+      <div class="logo">All About <span>Arsenal</span></div>
+      <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+          <path d="M3 3v5h5"/>
+        </svg>
+        Refresh now
+      </button>
+    </div>
+    <div class="dateline" id="dateline">Loading latest Arsenal FC news…</div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="feed-tabs" id="tabs"></div>
+  <div id="section-label-wrap"></div>
+  <div id="grid-wrap">
+    <div class="state">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <p>Fetching the latest Arsenal news…</p>
+    </div>
+  </div>
+  <div class="read-more-row" id="read-more-row"></div>
+</main>
+
+<script>
+  const BATCH = 8;
+  const TABS  = ['All', 'World Cup', 'Transfer', 'Champions League', 'Match', 'Club News'];
+  const TAGS  = { transfer: 'Transfer', ucl: 'Champions League', wc: 'World Cup', match: 'Match', news: 'Club News' };
+  const PH    = { ucl: ['ph-ucl','🏆'], transfer: ['ph-transfer','💰'], wc: ['ph-wc','🌍'], match: ['ph-match','⚽'], news: ['ph-news','📰'] };
+
+  let allArticles = [];
+  let filtered    = [];
+  let active      = 'All';
+  let showing     = BATCH;
+  let updatedAt   = null;
+
+  document.getElementById('hero-date').textContent =
+    new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  function tagKey(tabLabel) {
+    return Object.entries(TAGS).find(([, v]) => v === tabLabel)?.[0] || null;
+  }
+
+  function renderTabs() {
+    document.getElementById('tabs').innerHTML = TABS.map(t =>
+      `<button class="tab${t === active ? ' active' : ''}" onclick="switchTab('${t}')">${t}</button>`
+    ).join('');
+  }
+
+  function getFiltered() {
+    if (active === 'All') return allArticles;
+    const key = tagKey(active);
+    return key ? allArticles.filter(a => a.tag === key) : allArticles;
+  }
+
+  function renderGrid() {
+    const slice = filtered.slice(0, showing);
+    const cards = slice.map(a => {
+      const [phClass, phIcon] = PH[a.tag] || PH.news;
+      const imgHtml = a.image
+        ? `<img class="card-img" src="${a.image}" alt="" loading="lazy" onerror="this.outerHTML='<div class=\\'card-ph ${phClass}\\'>${phIcon}</div>'">`
+        : `<div class="card-ph ${phClass}">${phIcon}</div>`;
+      return `<a class="card" href="${a.url}" target="_blank" rel="noopener noreferrer">
+        ${imgHtml}
+        <div class="card-body">
+          <div class="card-src">${a.source}</div>
+          <div class="card-title">${a.title}</div>
+          <span class="card-tag tag-${a.tag}">${TAGS[a.tag] || 'News'}</span>
+          <div class="card-date">${a.date}</div>
+        </div>
+      </a>`;
+    }).join('');
+
+    const timeAgo = updatedAt
+      ? `<span class="updated-tag">Updated ${relTime(updatedAt)}</span>` : '';
+
+    document.getElementById('section-label-wrap').innerHTML = `
+      <div class="section-label">
+        Latest news — <span class="ttag">${active}</span>${timeAgo}
+        <span class="count">${filtered.length} stories</span>
+      </div>`;
+
+    document.getElementById('grid-wrap').innerHTML =
+      filtered.length ? `<div class="grid">${cards}</div>`
+      : `<div class="state">No stories found in this category yet.</div>`;
+
+    const remaining = filtered.length - showing;
+    const row = document.getElementById('read-more-row');
+    if (remaining > 0) {
+      row.innerHTML = `
+        <button class="btn-more" onclick="loadMore()">↓ Read more — ${remaining} more ${remaining === 1 ? 'story' : 'stories'}</button>
+        <div class="showing-label">Showing ${showing} of ${filtered.length}</div>`;
+    } else if (filtered.length > BATCH) {
+      row.innerHTML = `
+        <button class="btn-more" onclick="collapse()">↑ Show less</button>
+        <div class="showing-label">Showing all ${filtered.length}</div>`;
+    } else {
+      row.innerHTML = '';
+    }
+  }
+
+  function switchTab(t) {
+    active   = t;
+    showing  = BATCH;
+    filtered = getFiltered();
+    renderTabs();
+    renderGrid();
+  }
+
+  function loadMore() {
+    showing = Math.min(showing + BATCH, filtered.length);
+    renderGrid();
+  }
+
+  function collapse() {
+    showing = BATCH;
+    renderGrid();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function relTime(iso) {
+    const diff = Math.floor((Date.now() - new Date(iso)) / 60000);
+    if (diff < 1)   return 'just now';
+    if (diff < 60)  return `${diff}m ago`;
+    if (diff < 1440) return `${Math.floor(diff / 60)}h ago`;
+    return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+  }
+
+  async function loadArticles() {
+    try {
+      const res  = await fetch('/api/articles');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+
+      allArticles = data.articles || [];
+      updatedAt   = data.updatedAt || null;
+      filtered    = getFiltered();
+
+      renderTabs();
+      renderGrid();
+
+      const sources = [...new Set(allArticles.map(a => a.source))];
+      document.getElementById('dateline').textContent =
+        `${new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} · ${allArticles.length} stories · ${sources.length} sources`;
+    } catch (err) {
+      document.getElementById('grid-wrap').innerHTML =
+        `<div class="state error-msg">Could not load articles: ${err.message}</div>`;
+      document.getElementById('dateline').textContent = 'Error loading news';
+    }
+  }
+
+  async function manualRefresh() {
+    const btn = document.getElementById('refreshBtn');
+    btn.classList.add('spinning');
+    btn.disabled = true;
+    try {
+      await fetch('/api/refresh', { method: 'POST' });
+      await loadArticles();
+    } catch (err) {
+      console.error('Refresh failed:', err);
+    } finally {
+      btn.classList.remove('spinning');
+      btn.disabled = false;
+    }
+  }
+
+  // Auto-refresh every 30 minutes to pick up new cron writes
+  setInterval(loadArticles, 30 * 60 * 1000);
+
+  loadArticles();
+</script>
+</body>
+</html>
