@@ -1,0 +1,15 @@
+name: Prevent Render Backend Sleep
+
+on:
+  schedule:
+    # Triggers every 12 minutes to beat Render's 15-minute timeout
+    - cron: '*/12 * * * *'
+  workflow_dispatch: # Allows app to manually trigger via GitHub when needed
+
+jobs:
+  ping-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Ping to Render
+        run: |
+          curl -s https://all-about-arsenal.onrender.com/
